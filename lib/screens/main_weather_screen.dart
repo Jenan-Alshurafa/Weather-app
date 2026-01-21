@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/weather_model.dart';
 import '../widgets/glassmorphism_widget.dart';
+import '../widgets/nav_bar_widget.dart';
 import 'weather_search_screen.dart';
 
 class MainWeatherScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ class MainWeatherScreen extends StatefulWidget {
 
 class _MainWeatherScreenState extends State<MainWeatherScreen> {
   bool isDaySelected = true;
+  int currentIndex = 0;
 
   final WeatherModel currentWeather = WeatherModel(
     location: 'Lahore, Pakistan',
@@ -32,7 +34,7 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
     HourlyWeather(
       time: '11AM',
       temperature: 20,
-      weatherIcon: 'assets/images/rain2.gif',
+      weatherIcon: 'assets/images/rainbow.gif',
     ),
     HourlyWeather(
       time: '12PM',
@@ -42,7 +44,7 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
     HourlyWeather(
       time: '1PM',
       temperature: 18,
-      weatherIcon: 'assets/images/cloudy.gif',
+      weatherIcon: 'assets/images/heavysnow.gif',
     ),
     HourlyWeather(
       time: '2PM',
@@ -54,6 +56,8 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBody: true,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -69,49 +73,6 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              // Status Bar
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      '9:41',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.signal_cellular_4_bar, color: Colors.white, size: 18),
-                        const SizedBox(width: 5),
-                        Icon(Icons.wifi, color: Colors.white, size: 18),
-                        const SizedBox(width: 5),
-                        Icon(Icons.battery_full, color: Colors.white, size: 18),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              
-              // Location
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    currentWeather.location,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-
               // Main Weather Display
               Expanded(
                 child: SingleChildScrollView(
@@ -122,77 +83,50 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
                       
                       // Weather Card
                       Container(
-                        height: 120,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          gradient: LinearGradient(
-                            colors: [
-                              const Color(0xFF6A5ACD).withOpacity(0.6),
-                              const Color(0xFF836FFF).withOpacity(0.6),
-                            ],
-                          ),
+                         color: Colors.black.withValues(alpha: 0),
+
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               // Text
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
                                   Text(
                                     currentWeather.location,
-                                    style: TextStyle(color: Colors.white70),
+                                    style: TextStyle(color: Colors.white70,  fontSize: 20),
                                   ),
                                   Text(
                                     '${currentWeather.temperature}°',
                                     style: TextStyle(
-                                      fontSize: 36,
+                                      fontSize: 50,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold,
                                     ),
-                                  ),
+                                  ), 
+                                     // Icon weather
+                                   Image.asset(
+                                currentWeather.weatherIcon,
+                                height: 200,
+                                width: 200,
+                                fit: BoxFit.contain,
+                              ),
                                   Text(
                                     currentWeather.condition,
-                                    style: TextStyle(color: Colors.white70),
+                                    style: TextStyle(color: Colors.white70, fontSize: 20),
                                   ),
-                                ],
-                              ),
-
-                              // Icon
-                              Image.asset(
-                                currentWeather.weatherIcon,
-                                height: 70,
-                              ),
                             ],
                           ),
                         ),
                       ),
 
-                      const SizedBox(height: 40),
-
-                      // Day/Week Toggle
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 150),
-                        child: GlassmorphismWidget(
-                          borderRadius: BorderRadius.circular(30),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              _buildToggleButton('Day', isDaySelected),
-                              _buildToggleButton('WEEK', !isDaySelected),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 80),
 
                       // Hourly Forecast
                       SizedBox(
-                        height: 140,
+                        height: 170,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -200,7 +134,7 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
                           itemBuilder: (context, index) {
                             final hour = hourlyForecast[index];
                             return Container(
-                              width: 90,
+                              width: 80,
                               margin: const EdgeInsets.only(right: 15),
                               child: GlassmorphismWidget(
                                 borderRadius: BorderRadius.circular(50),
@@ -224,7 +158,7 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
                                       : null,
                                   padding: const EdgeInsets.all(12),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
                                         hour.time,
@@ -236,16 +170,16 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
                                               : FontWeight.normal,
                                         ),
                                       ),
-                                      const SizedBox(height: 8),
+                                      const SizedBox(height: 20),
                                       SizedBox(
-                                        height: 40,
-                                        width: 40,
+                                        height: 55,
+                                        width: 55,
                                         child: Image.asset(
                                           hour.weatherIcon,
                                           fit: BoxFit.contain,
                                         ),
                                       ),
-                                      const SizedBox(height: 8),
+                                      const SizedBox(height: 20),
                                       Text(
                                         '${hour.temperature}°',
                                         style: TextStyle(
@@ -263,7 +197,7 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
                         ),
                       ),
 
-                      const SizedBox(height: 100),
+                      const SizedBox(height: 40),
                     ],
                   ),
                 ),
@@ -276,88 +210,23 @@ class _MainWeatherScreenState extends State<MainWeatherScreen> {
     );
   }
 
-  Widget _buildToggleButton(String text, bool isSelected) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            isDaySelected = text == 'Day';
-          });
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            color: isSelected
-                ? Colors.purple.withOpacity(0.5)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget _buildBottomNavBar() {
-    return Container(
-      margin: const EdgeInsets.all(20),
-      child: GlassmorphismWidget(
-        borderRadius: BorderRadius.circular(40),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.explore, color: Colors.white),
-                onPressed: () {},
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.purple.withOpacity(0.8),
-                      Colors.blue.withOpacity(0.8),
-                    ],
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.purple.withOpacity(0.5),
-                      blurRadius: 20,
-                      spreadRadius: 5,
-                    ),
-                  ],
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.add, color: Colors.white, size: 28),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const WeatherSearchScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.menu, color: Colors.white),
-                onPressed: () {},
-              ),
-            ],
+    return NavBarWidget(
+      currentIndex: currentIndex,
+      onHomeTap: () {
+        setState(() => currentIndex = 0);
+      },
+      onAddTap: () {
+        setState(() => currentIndex = 1);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WeatherSearchScreen(),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
+
 

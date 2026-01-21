@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../models/weather_model.dart';
 import '../widgets/glassmorphism_widget.dart';
 import '../widgets/weather_card.dart';
+import '../widgets/nav_bar_widget.dart';
 import '../services/city_service.dart';
+import 'main_weather_screen.dart';
 
 
 class WeatherSearchScreen extends StatefulWidget {
@@ -17,32 +19,9 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
   List<dynamic> _cities = [];
   bool _isLoading = false;
   bool _isAddingWeather = false;
+  int currentIndex = 1;
 
   List<WeatherModel> weatherCards = [
-    WeatherModel(
-      location: 'Lahore, Pakistan',
-      temperature: 20,
-      condition: 'Rainy',
-      highTemp: 20,
-      lowTemp: 4,
-      weatherIcon: 'assets/images/rain2.gif',
-    ),
-    WeatherModel(
-      location: 'Lahore, Pakistan',
-      temperature: 20,
-      condition: 'Sunny',
-      highTemp: 20,
-      lowTemp: 4,
-      weatherIcon: 'assets/images/sun.gif',
-    ),
-    WeatherModel(
-      location: 'Lahore, Pakistan',
-      temperature: 20,
-      condition: 'Thunderstorm',
-      highTemp: 20,
-      lowTemp: 4,
-      weatherIcon: 'assets/images/heavyrain.gif',
-    ),
   ];
 
   @override
@@ -54,6 +33,8 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBody: true,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -74,25 +55,6 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      '9:41',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Icon(Icons.signal_cellular_4_bar, color: Colors.white, size: 18),
-                        const SizedBox(width: 5),
-                        Icon(Icons.wifi, color: Colors.white, size: 18),
-                        const SizedBox(width: 5),
-                        Icon(Icons.battery_full, color: Colors.white, size: 18),
-                      ],
-                    ),
-                  ],
                 ),
               ),
 
@@ -256,6 +218,21 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: NavBarWidget(
+        currentIndex: currentIndex,
+        onHomeTap: () {
+          setState(() => currentIndex = 0);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MainWeatherScreen(),
+            ),
+          );
+        },
+        onAddTap: () {
+          setState(() => currentIndex = 1);
+        },
+      ),
     );
   }
 
@@ -377,6 +354,5 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
       ),
     );
   }
-
 }
 
