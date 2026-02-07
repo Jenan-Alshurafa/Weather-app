@@ -25,12 +25,12 @@ class GlassmorphismWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: borderRadius ?? BorderRadius.circular(20),
         border: Border.all(
-          color: borderColor ?? Colors.white.withOpacity(0.3),
+          color: borderColor ?? Colors.white.withValues(alpha: 0.3),
           width: borderWidth,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: blur,
             spreadRadius: 0,
           ),
@@ -42,7 +42,7 @@ class GlassmorphismWidget extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(opacity),
+              color: Colors.white.withValues(alpha: opacity),
               borderRadius: borderRadius ?? BorderRadius.circular(20),
             ),
             child: child,

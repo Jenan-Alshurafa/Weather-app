@@ -1,12 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class CityService {
-  // To get your RapidAPI key:
-  // 1. Go to https://rapidapi.com/wirefreethought/api/geodb-cities
-  // 2. Click "Subscribe to Test" (free tier available)
-  // 3. Copy your API key from the "Code Snippets" section
-  // 4. Paste it below (make sure there are no extra spaces or quotes)
+// City api key
   static const String _apiKey = 'e82481e7c6mshb00aa82ec1a8f49p1c954cjsn6fbab9b5808a';
   static const String _host = 'wft-geo-db.p.rapidapi.com';
 
@@ -55,12 +53,7 @@ class CityService {
   }
 
   static Future<Map<String, dynamic>> getWeather(double lat, double lon) async {
-    // To get your OpenWeatherMap API key (FREE):
-    // 1. Go to https://openweathermap.org/api
-    // 2. Click "Sign Up" or "Sign In" if you have an account
-    // 3. After signing up, go to https://home.openweathermap.org/api_keys
-    // 4. Create a new API key (it's free, no credit card required)
-    // 5. Copy the API key and paste it below
+// Weather api key
     const apiKey = 'b5ac5fbdc91c8889b86d73d2e8300d16';
 
     final url = Uri.parse(

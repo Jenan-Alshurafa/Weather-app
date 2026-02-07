@@ -65,15 +65,15 @@ class _AnimatedNavButton extends StatelessWidget {
         gradient: isActive
             ? LinearGradient(
                 colors: [
-                  Colors.purple.withOpacity(0.9),
-                  Colors.blue.withOpacity(0.9),
+                  Colors.purple.withValues(alpha: 0.9),
+                  Colors.blue.withValues(alpha: 0.9),
                 ],
               )
             : null,
         boxShadow: isActive
             ? [
                 BoxShadow(
-                  color: Colors.purple.withOpacity(0.6),
+                  color: Colors.purple.withValues(alpha: 0.6),
                   blurRadius: 25,
                   spreadRadius: 6,
                 ),

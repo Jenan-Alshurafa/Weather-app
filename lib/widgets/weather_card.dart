@@ -11,55 +11,90 @@ class WeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFF6A5ACD).withOpacity(0.6),
-            const Color(0xFF836FFF).withOpacity(0.6),
-          ],
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Text
-            Column(
+    final theme = Theme.of(context).textTheme;
+
+    return Stack(
+      children: [
+        Container(
+          height: 190,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF4A3F8C),
+                Color(0xFF5B4DA3),
+                Color(0xFF6A5ACD),
+              ],
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                /// Location
                 Text(
                   weather.location,
-                  style: TextStyle(color: Colors.white70),
-                ),
-                Text(
-                  '${weather.temperature}°',
-                  style: TextStyle(
-                    fontSize: 36,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+                  style: theme.bodyMedium?.copyWith(
+                    color: const Color.fromARGB(207, 255, 255, 255),
+                    fontSize: 14,
                   ),
                 ),
-                Text(
-                  weather.condition,
-                  style: TextStyle(color: Colors.white70),
+
+                /// Temperature + Condition (VERTICAL)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${weather.temperature}°',
+                      style: theme.displaySmall?.copyWith(
+                        fontSize: 56,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        height: 1.1,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      weather.condition,
+                      style: theme.bodyLarge?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.9),
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+
+                /// High / Low
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    'H:${weather.highTemp}°  L:${weather.lowTemp}°',
+                    style: theme.bodySmall?.copyWith(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
               ],
             ),
-
-            // Icon
-            Image.asset(
-              weather.weatherIcon,
-              height: 70,
-            ),
-          ],
+          ),
         ),
-      ),
+
+        /// Icon INSIDE top-right corner
+        Positioned(
+          top: 12,
+          right: 12,
+          child: Image.asset(
+            weather.weatherIcon,
+            height: 80,
+          ),
+        ),
+      ],
     );
   }
 }
-

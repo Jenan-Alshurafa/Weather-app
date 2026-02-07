@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/main_weather_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
           primary: Colors.purple,
           secondary: Colors.blue,
         ),
+        textTheme: GoogleFonts.nunitoTextTheme(),
       ),
       home: const MainWeatherScreen(),
     );
