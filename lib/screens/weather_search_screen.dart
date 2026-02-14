@@ -228,7 +228,7 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
 
                                   if (lat == null || lon == null) {
                                     _showErrorSnackBar(
-                                      'إحداثيات المدينة غير متوفرة',
+                                      'Coordinates not available',
                                     );
                                     return;
                                   }
@@ -315,7 +315,7 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
         setState(() {
           _isAddingWeather = false;
         });
-        _showErrorSnackBar('إحداثيات المدينة غير متوفرة');
+        _showErrorSnackBar('Coordinates not available');
         return;
       }
 
@@ -382,9 +382,9 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
   String _getWeatherIcon(String condition) {
     switch (condition.toLowerCase()) {
       case 'clear':
-        return 'assets/images/clear.gif';
+        return 'assets/images/clearnigiht.gif';
       case 'clouds':
-        return 'assets/images/cloudsun.gif';
+        return 'assets/images/cloudy.gif';
       case 'rain':
       case 'drizzle':
         return 'assets/images/rainyy.gif';
@@ -392,16 +392,18 @@ class _WeatherSearchScreenState extends State<WeatherSearchScreen> {
         return 'assets/images/windy.gif';
       case 'snow':
         return 'assets/images/snowy.gif';
-      case 'fog':
-        return 'assets/images/foggy.gif';
-      case 'haze':
-        return 'assets/images/hazy.gif';
-      case 'mist':
-        return 'assets/images/misty.gif';
-      case 'smoke':
-        return 'assets/images/smoke.gif';
-      case 'dust':
-        return 'assets/images/dusty.gif';
+      case 'rainbow':
+        return 'assets/images/rainbow.gif';
+      case 'meteor':
+        return 'assets/images/meteor.gif';
+      case 'sunrise':
+        return 'assets/images/sunrise.gif';
+      case 'sunset':
+        return 'assets/images/sunset.gif';
+      case 'snowstorm':
+        return 'assets/images/snowstorm.gif';
+      case 'papy':
+        return 'assets/images/papy.gif';
       default:
         return 'assets/images/sun.gif';
     }
