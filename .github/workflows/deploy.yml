@@ -17,17 +17,14 @@ jobs:
 
       - name: Create .env file
         run: echo "${{ secrets.ENV_FILE }}" > .env
-        working-directory: weatherapplication
 
       - name: Get dependencies
         run: flutter pub get
-        working-directory: weatherapplication
 
       - name: Build web
         run: flutter build web --release --base-href "/Weather-app/"
-        working-directory: weatherapplication
 
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./weatherapplication/build/web
+          publish_dir: ./build/web
