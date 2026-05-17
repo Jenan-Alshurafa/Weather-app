@@ -20,7 +20,7 @@ jobs:
         working-directory: weatherapplication
 
       - name: Build web
-        run: flutter build web --release --base-href "/weatherapp/"
+        run: flutter build web --release --base-href "/Weather-app/"
         working-directory: weatherapplication
 
       - uses: peaceiris/actions-gh-pages@v3
